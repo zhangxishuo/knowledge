@@ -1,4 +1,4 @@
-# Redis 初识
+# Redis 简介
 
 ## Redis
 
