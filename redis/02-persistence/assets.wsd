@@ -1,4 +1,5 @@
 @startuml
+title rdb-create
 skinparam style strictuml
 
 rectangle "redis\n[内存]" as redis #red
@@ -8,6 +9,7 @@ redis -right-> rdb: 创建
 @enduml
 
 @startuml
+title rdb-recovery
 skinparam style strictuml
 
 rectangle "redis\n[内存]" as redis #red
@@ -17,6 +19,7 @@ rdb -left-> redis: 启动载入
 @enduml
 
 @startuml
+title rdb-save
 skinparam style strictuml
 
 rectangle "客户端" as client #lightpink
@@ -28,6 +31,7 @@ redis -right-> rdb: 创建
 @enduml
 
 @startuml
+title rdb-bgsave
 skinparam style strictuml
 
 rectangle "客户端" as client #lightpink
@@ -42,6 +46,7 @@ fork -up-> redis: 创建成功
 @enduml
 
 @startuml
+title aof-create
 skinparam style strictuml
 
 rectangle "客户端A" as clientA #lightpink
@@ -57,10 +62,61 @@ redis -down-> aof
 @enduml
 
 @startuml
+title aof-recovery
 skinparam style strictuml
 
 rectangle "redis\nhello -> world\njava -> good\nphp -> perfect" as redis #red
 rectangle "aof文件\nset hello world\nset java good\nset php perfect" as aof #lightgreen
 
 aof -left-> redis: 载入
+@enduml
+
+@startuml
+title aof-always
+skinparam style strictuml
+
+rectangle "redis" as redis #red
+rectangle "缓冲" as buffer #red
+rectangle "aof文件" as aof #lightgreen
+
+redis -right-> buffer: 写命令刷新到缓冲区
+buffer -right-> aof: (always)每条命令 fsync 到磁盘
+@enduml
+
+@startuml
+title aof-everysec
+skinparam style strictuml
+
+rectangle "redis" as redis #red
+rectangle "缓冲" as buffer #red
+rectangle "aof文件" as aof #lightgreen
+
+redis -right-> buffer: 写命令刷新到缓冲区
+buffer -right-> aof: (everysec)每秒把缓冲区 fsync 到磁盘
+@enduml
+
+@startuml
+title aof-no
+skinparam style strictuml
+
+rectangle "redis" as redis #red
+rectangle "缓冲" as buffer #red
+rectangle "aof文件" as aof #lightgreen
+
+redis -right-> buffer: 写命令刷新到缓冲区
+buffer -right-> aof: (no)OS 决定 fsync
+@enduml
+
+@startuml
+title aof-rewrite
+skinparam style strictuml
+
+rectangle "客户端" as client #lightpink
+rectangle "redis" as redis #red
+rectangle "子进程" as fork #red
+rectangle "aof文件" as aof #lightgreen
+
+client -right-> redis: bgrewriteaof命令
+redis -down-> fork: fork()
+fork -right-> aof: AOF重写
 @enduml

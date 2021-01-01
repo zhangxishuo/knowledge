@@ -36,45 +36,31 @@
 
 ![AOF恢复](assets/aof-recovery.png)
 
-### AOF的三种策略
+### 三种策略
 
-![always](assets/5-7.png)
+![always](assets/aof-always.png)
 
-![everysec](assets/5-8.png)
+![everysec](assets/aof-everysec.png)
 
-![no](assets/5-9.png)
+![no](assets/aof-no.png)
 
 | 命令 | always | everysec | no |
 | --- | --- | --- | --- |
-| 优点 | 不丢失数据 | 每秒一次fsync | 不用管 |
-| 缺点 | IO开销大，一般的Sata盘只有几百TPS | 丢1秒数据 | 不可控 |
+| 优点 | 不丢失数据 | 每秒一次 `fsync` | 不用管 |
+| 缺点 | `IO` 开销大，一般的 `Sata` 盘只有几百 `TPS` | 丢 `1` 秒数据 | 不可控 |
 
-### AOF重写
+### 重写
 
-![AOF重写](assets/5-10.png)
+| 原生 AOF | AOF 重写 |
+| --- | --- |
+| set hello world<br/>set hello php<br/>set hello java<br/>incr counter<br/>incr counter | set hello java<br/>set counter 2 |
 
 - 减少磁盘占用量
 - 加速恢复速度
 
-**bgrewriteaof**
+![bgrewriteaof](assets/aof-rewrite.png)
 
-![bgrewriteaof](assets/5-11.png)
-
-**配置**
-
-| 配置名 | 含义 |
-| --- | --- |
-| auto-aof-rewrite-min-size | AOF文件重写需要的尺寸 |
-| auto-aof-rewrite-percentage | AOF文件增长率 |
-
-**统计**
-
-| 统计名 | 含义 |
-| --- | --- |
-| aof_current_size | AOF当前尺寸(单位：字节) |
-| aof_base_size | AOF上次启动和重写的尺寸(单位：字节) |
-
-## RDB和AOF的抉择
+## 对比
 
 | 命令 | RDB | AOF |
 | --- | --- | --- |
@@ -83,22 +69,3 @@
 | 恢复速度 | 快 | 慢 |
 | 数据安全性 | 丢数据 | 根据策略决定 |
 | 轻重 | 重 | 轻 |
-
-**RDB最佳策略**
-
-- “关”掉RDB
-- 集中管理
-- 主从，从开
-
-**AOF最佳策略**
-
-- “开”：缓存和存储
-- AOF重写集中管理
-- everysec
-
-**最佳策略**
-
-- 小分片
-- 缓存或者存储
-- 监控(硬盘、内存、负载、网络)
-- 足够的内存
