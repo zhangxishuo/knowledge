@@ -2,9 +2,9 @@
 
 `Redis` 所有数据保持在内存中，对数据的更新将异步地保存到磁盘上。
 
-快照：`Redis RDB`
+快照 : `Redis RDB`
 
-写日志：`Redis AOF`
+写日志 : `Redis AOF`
 
 ## RDB
 
@@ -30,11 +30,11 @@
 
 ## AOF
 
-### 什么是AOF
+### 写日志
 
-![AOF运行原理-创建](assets/5-5.png)
+![AOF创建](assets/aof-create.png)
 
-![AOF运行原理-恢复](assets/5-6.png)
+![AOF恢复](assets/aof-recovery.png)
 
 ### AOF的三种策略
 

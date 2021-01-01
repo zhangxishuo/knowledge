@@ -40,3 +40,27 @@ redis -down-> fork: fork()
 fork -right-> rdb: 创建
 fork -up-> redis: 创建成功
 @enduml
+
+@startuml
+skinparam style strictuml
+
+rectangle "客户端A" as clientA #lightpink
+rectangle "客户端B" as clientB #lightblue
+rectangle "客户端C" as clientC #lightgray
+rectangle "redis" as redis #red
+rectangle "aof文件\nset hello world\nset java good\nset php perfect" as aof #lightgreen
+
+clientA -down-> redis: set hello world
+clientB -down-> redis: set java good
+clientC -down-> redis: set php perfect
+redis -down-> aof
+@enduml
+
+@startuml
+skinparam style strictuml
+
+rectangle "redis\nhello -> world\njava -> good\nphp -> perfect" as redis #red
+rectangle "aof文件\nset hello world\nset java good\nset php perfect" as aof #lightgreen
+
+aof -left-> redis: 载入
+@enduml
