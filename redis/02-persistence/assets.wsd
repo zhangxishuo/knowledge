@@ -1,0 +1,42 @@
+@startuml
+skinparam style strictuml
+
+rectangle "redis\n[内存]" as redis #red
+rectangle "rdb文件(二进制)\n[硬盘]" as rdb #lightgreen
+
+redis -right-> rdb: 创建
+@enduml
+
+@startuml
+skinparam style strictuml
+
+rectangle "redis\n[内存]" as redis #red
+rectangle "rdb文件(二进制)\n[硬盘]" as rdb #lightgreen
+
+rdb -left-> redis: 启动载入
+@enduml
+
+@startuml
+skinparam style strictuml
+
+rectangle "客户端" as client #lightpink
+rectangle "redis\n[阻塞]" as redis #red
+rectangle "rdb文件(二进制)" as rdb #lightgreen
+
+client -right-> redis: save命令
+redis -right-> rdb: 创建
+@enduml
+
+@startuml
+skinparam style strictuml
+
+rectangle "客户端" as client #lightpink
+rectangle "redis" as redis #red
+rectangle "子进程" as fork #red
+rectangle "rdb文件(二进制)" as rdb #lightgreen
+
+client -right-> redis: bgsave命令
+redis -down-> fork: fork()
+fork -right-> rdb: 创建
+fork -up-> redis: 创建成功
+@enduml

@@ -10,63 +10,25 @@
 
 ### 快照
 
-如存在老的 `rdb` 文件，新文件进行替换。
+如存在老的 `rdb` 文件，新文件会进行替换。
 
-![rdb](assets/5-1.png)
+![rdb创建](assets/rdb-create.png)
+
+![rdb恢复](assets/rdb-recovery.png)
 
 ### 触发快照
 
-**save**
+![save](assets/rdb-save.png)
 
-![save](assets/5-2.png)
-
-**bgsave**
-
-![bgsave](assets/5-3.png)
-
+![bgsave](assets/rdb-bgsave.png)
 
 | 命令 | save | bgsave |
 | --- | --- | --- |
-| IO类型 | 同步 | 异步 |
-| 阻塞 | 是 | 是(阻塞发生在fork) |
-| 复杂度 | O(n) | O(n) |
+| `IO` 类型 | 同步 | 异步 |
 | 优点 | 不会消耗额外内存 | 不阻塞客户端命令 |
-| 缺点 | 阻塞客户端命令 | 需要fork，消耗内存 |
+| 缺点 | 阻塞客户端命令 | 需要 `fork` ，消耗内存 |
 
-**其他触发机制**
-
-1. 全量复制
-2. debug reload
-3. shutdown
-
-**总结**
-
-1. RDB是Redis内存到硬盘的快照，用于持久化。
-2. save通常会阻塞Redis。
-3. bgsave不会阻塞Redis，但是会fork新进程。
-4. save自动配置满足任一就会被执行。
-5. 有些触发机制不容忽视。
-
-## AOF
-
-### RDB有什么问题
-
-**耗时、耗性能**
-
-![RDB问题](assets/5-4.png)
-
-- O(n)数据：耗时
-- fork()：消耗内存，copy-on-write策略
-- Disk I/O：IO性能
-
-**不可控、丢失数据**
-
-| 时间戳 | save |
-| --- | --- |
-| T1 | 执行多个写命令 |
-| T2 | 满足RDB自动创建的条件 |
-| T3 | 再次执行多个写命令 |
-| T4 | 宕机 |
+## aof
 
 ### 什么是AOF
 
