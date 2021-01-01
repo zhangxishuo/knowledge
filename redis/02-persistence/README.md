@@ -1,35 +1,29 @@
-# Redis 持久化的取舍和选择
+# redis 持久化
 
-## 持久化的作用
+`redis` 所有数据保持在内存中，对数据的更新将异步地保存到磁盘上。
 
-**什么是持久化**
+快照：`redis rdb`
 
-Redis所有数据保持在内存中，对数据的更新将异步地保存到磁盘上。
+写日志：`redis aof`
 
-**持久化方式**
+## rdb
 
-快照：MySQL Dump、Redis RDB
+### 快照
 
-写日志：MySQL Binlog、Hbase HLog、Redis AOF
+如存在老的 `rdb` 文件，新文件进行替换。
 
-## RDB
+![rdb](assets/5-1.png)
 
-**什么是RDB**
+### 触发快照
 
-![RDB](assets/5-1.png)
-
-**触发机制**
+**save**
 
 ![save](assets/5-2.png)
 
-- save命令
-- 文件策略：如存在老的RDB文件，新文件进行替换
-- 复杂度：O(n)
+**bgsave**
 
 ![bgsave](assets/5-3.png)
 
-- bgsave命令
-- 文件策略和复杂度与save相同
 
 | 命令 | save | bgsave |
 | --- | --- | --- |
