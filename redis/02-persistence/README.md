@@ -1,20 +1,20 @@
-# redis 持久化
+# Redis 持久化
 
-`redis` 所有数据保持在内存中，对数据的更新将异步地保存到磁盘上。
+`Redis` 所有数据保持在内存中，对数据的更新将异步地保存到磁盘上。
 
-快照：`redis rdb`
+快照：`Redis RDB`
 
-写日志：`redis aof`
+写日志：`Redis AOF`
 
-## rdb
+## RDB
 
 ### 快照
 
-如存在老的 `rdb` 文件，新文件会进行替换。
+如存在老的 `RDB` 文件，新文件会进行替换。
 
-![rdb创建](assets/rdb-create.png)
+![RDB创建](assets/rdb-create.png)
 
-![rdb恢复](assets/rdb-recovery.png)
+![RDB恢复](assets/rdb-recovery.png)
 
 ### 触发快照
 
@@ -28,7 +28,7 @@
 | 优点 | 不会消耗额外内存 | 不阻塞客户端命令 |
 | 缺点 | 阻塞客户端命令 | 需要 `fork` ，消耗内存 |
 
-## aof
+## AOF
 
 ### 什么是AOF
 
