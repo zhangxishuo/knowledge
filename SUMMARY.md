@@ -9,6 +9,6 @@
   * [第四节 : Redis Sentinel](1-tools/4-git/readme.md)
   * [第五节 : Redis Cluster](1-tools/5-jdk/readme.md)
 * [历史](history/README.md)
-  * [河北工业大学](hostory/hebut/README.md)
+  * [河北工业大学](history/hebut/README.md)
 * [读书](read/README.md)
   * [度光阴的人](read/spend-time-people/README.md)
