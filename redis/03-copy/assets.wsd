@@ -1,0 +1,9 @@
+@startuml
+title master-slave-copy
+
+rectangle "redis\n[master]" as master #red
+rectangle "redis\n[slave]" as slave #red
+
+slave -left-> master: 复制
+
+@enduml
