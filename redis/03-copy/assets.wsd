@@ -64,3 +64,19 @@ slave -> slave: flush old data
 slave -> slave: load RDB
 slave -> slave: 如果开启aof，bgrewriteaof
 @enduml
+
+@startuml
+title part-copy
+skinparam style strictuml
+
+participant "redis slave" as slave #red
+participant "redis master" as master #red
+
+autonumber
+master -> slave: Connection lost
+master -> master: request[repl-backlog-buffer]
+slave -> master: Connecting to master
+slave -> master: psync {offset} {runid}
+master -> slave: CONTINUE
+master -> slave: send partial data
+@enduml

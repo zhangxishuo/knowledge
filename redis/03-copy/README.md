@@ -23,21 +23,11 @@ slaveof ip port
 slave-read-only yes
 ```
 
-## 全量复制
+## 复制
 
 ![全量复制](assets/full-copy.png)
 
-**开销**
-
-1. bgsave时间
-2. RDB文件网络传输时间
-3. 从节点清空数据时间
-4. 从节点加载RDB的时间
-5. 可能的AOF重写时间
-
-## 部分复制
-
-![部分复制](assets/7-6.png)
+![部分复制](assets/part-copy.png)
 
 ## 主从复制常见问题
 
