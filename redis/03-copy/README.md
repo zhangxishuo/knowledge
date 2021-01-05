@@ -29,22 +29,7 @@ slave-read-only yes
 
 ![部分复制](assets/part-copy.png)
 
-## 主从复制常见问题
-
-### 读写分离
-
-- 读流量分摊到从节点
-
-![读写分离](assets/7-7.png)
-
-- 复制数据延迟
-- 读到过期数据
-- 从节点故障
-
-### 配置不一致
-
-1. maxmemory不一致：丢失数据
-2. 数据结构优化参数(hash-max-ziplist-entries)：内存不一致
+## 常见问题
 
 ### 规避全量复制
 
