@@ -18,8 +18,6 @@
 
 ![slaveof-no-one](assets/slave-of-no-one.png)
 
-### 配置实现
-
 ```text
 slaveof ip port
 slave-read-only yes
@@ -27,7 +25,7 @@ slave-read-only yes
 
 ## 全量复制
 
-![全量复制](assets/7-5.png)
+![全量复制](assets/full-copy.png)
 
 **开销**
 

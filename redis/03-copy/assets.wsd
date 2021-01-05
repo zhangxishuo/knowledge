@@ -45,3 +45,22 @@ client -right-> slave: slaveof no one
 slave -left-> client: OK
 slave -right-> master: ×
 @enduml
+
+@startuml
+title full-copy
+skinparam style strictuml
+
+participant "redis slave" as slave #red
+participant "redis master" as master #red
+
+autonumber
+slave -> master: psync ? -1
+master -> slave: +FULLRESYNC\n{runId} {offset}
+slave -> slave: save masterInfo
+master -> master: bgsave
+master -> slave: send RDB
+master -> slave: send buffer
+slave -> slave: flush old data
+slave -> slave: load RDB
+slave -> slave: 如果开启aof，bgrewriteaof
+@enduml
