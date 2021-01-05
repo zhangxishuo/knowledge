@@ -4,24 +4,19 @@
 
 单机问题：机器故障、容量瓶颈、`QPS` 瓶颈。
 
+主从复制作用：数据副本、扩展读性能。
+
 数据流向是单向的，`master` 到 `slave`。
 
 ![主从复制](assets/master-slave-copy.png)
 
-![一主多从](assets/7-2.png)
+![一主多从](assets/master-many-slave.png)
 
-**主从复制作用**
+## 配置
 
-- 数据副本
-- 扩展读性能
+![slaveof](assets/slave-of.png)
 
-## 主从复制配置
-
-### 命令实现
-
-![slaveof](assets/7-3.png)
-
-![slaveofnoone](assets/7-4.png)
+![slaveof-no-one](assets/slave-of-no-one.png)
 
 ### 配置实现
 
